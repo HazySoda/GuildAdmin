@@ -1,0 +1,47 @@
+.el-header {
+  background: linear-gradient(90deg, #005b9f 0%, #43b9ff 100%);
+  color: #fff;
+  font-size: 18px;
+  line-height: 80px;
+  .logo {
+    height: 36px;
+    vertical-align: middle;
+    width: 33px;
+  }
+  .title {
+    vertical-align: middle;
+  }
+}
+
+.el-aside {
+  overflow: hidden;
+  .el-nav {
+    height: 100%;
+    width: 100%;
+    .el-menu-item {
+      width: 100%;
+      &.is-active::after {
+        background: #6aafff;
+        content: '';
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 4px;
+      }
+    }
+  }
+}
+
+.el-main {
+  height: calc(100vh - 120px);
+}
+
+.el-footer {
+  background-color: #eee;
+  color: #333;
+  font-size: 12px;
+  height: 40px !important;
+  line-height: 40px;
+  text-align: center;
+}

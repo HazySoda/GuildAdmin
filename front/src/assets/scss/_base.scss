@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+html, body {
+  font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  padding: 0;
+}
+
+*::before, *::after {
+  box-sizing: border-box;
+}
+
+.clearfix::after {
+  clear: both;
+  content: "";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: #4390e2;
+}
+
+ul, li {
+  list-style: none;
+}
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
