@@ -26,16 +26,44 @@
           <el-input v-model="roleForm.name" placeholder="请填写游戏角色名"></el-input>
         </el-form-item>
         <el-form-item prop="career" label="职业" :label-width="formLabelWidth">
-          <el-select v-model="roleForm.career" placeholder="请选择角色职业"></el-select>
+          <el-select v-model="roleForm.career" placeholder="请选择角色职业">
+            <el-option
+              v-for="item in enums.careerList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item prop="duty" label="团队职责" :label-width="formLabelWidth">
-          <el-select v-model="roleForm.duty" placeholder="请选择团队职责"></el-select>
+          <el-select v-model="roleForm.duty" placeholder="请选择团队职责">
+            <el-option
+              v-for="item in enums.dutyList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item prop="firstSkill" label="第一专业技能" :label-width="formLabelWidth">
-          <el-select v-model="roleForm.firstSkill" placeholder="请选择第一专业技能"></el-select>
+          <el-select v-model="roleForm.firstSkill" placeholder="请选择第一专业技能">
+            <el-option
+              v-for="item in enums.skillList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item prop="secondSkill" label="第二专业技能" :label-width="formLabelWidth">
-          <el-select v-model="roleForm.secondSkill" placeholder="请选择第二专业技能"></el-select>
+          <el-select v-model="roleForm.secondSkill" placeholder="请选择第二专业技能">
+            <el-option
+              v-for="item in enums.skillList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item prop="firstPublish" label="是否首发" :label-width="formLabelWidth">
           <el-radio-group v-model="roleForm.firstPublish">
@@ -54,11 +82,13 @@
 
 <script>
 import * as components from '@/components'
+import * as enums from '@/enums'
 
 export default {
   components,
   data () {
     return {
+      enums,
       activeTab: 'personal',
       roleList: [
         {
