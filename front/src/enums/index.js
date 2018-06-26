@@ -61,6 +61,25 @@ const careerList = [
   }
 ]
 
+const dutyList = [
+  {
+    id: 0,
+    name: '坦克'
+  },
+  {
+    id: 1,
+    name: '治疗'
+  },
+  {
+    id: 2,
+    name: 'DPS (近战)'
+  },
+  {
+    id: 3,
+    name: 'DPS (远程)'
+  }
+]
+
 const skillList = [
   {
     id: 0,
@@ -114,5 +133,6 @@ const skillList = [
 
 export {
   careerList,
+  dutyList,
   skillList
 }
