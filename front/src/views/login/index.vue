@@ -23,6 +23,7 @@
 
 <script>
 import { regexs } from '@/util'
+import * as api from '@/api/user'
 
 export default {
   data () {
@@ -48,7 +49,11 @@ export default {
     submit () {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          console.log(this.loginForm)
+          const res = await api.login(this.loginForm)
+          const err = this.$catchErr(res)
+          if (err) return
+          window.localStorage.setItem('token', res.data.token)
+          this.$router.push('/app/home')
         }
       })
     },

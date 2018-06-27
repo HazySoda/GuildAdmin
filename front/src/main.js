@@ -9,6 +9,18 @@ import router from './router'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
+Vue.prototype.$catchErr = (res) => {
+  if (res.data.code === 0 || res.data.code === 200) {
+    return false
+  } else {
+    Vue.prototype.$message({
+      message: res.data.message,
+      type: 'error'
+    })
+    return true
+  }
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -23,6 +23,7 @@
 
 <script>
 import { regexs } from '@/util'
+import * as api from '@/api/user'
 
 export default {
   data () {
@@ -53,7 +54,11 @@ export default {
     async submit () {
       this.$refs.regForm.validate(async valid => {
         if (valid) {
-          console.log(this.regForm)
+          const res = await api.reg(this.regForm)
+          const err = this.$catchErr(res)
+          if (err) return
+          window.localStorage.setItem('token', res.data.token)
+          this.$router.push('/app/home')
         }
       })
     },
