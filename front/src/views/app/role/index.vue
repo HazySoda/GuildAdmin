@@ -1,6 +1,6 @@
 <template>
   <div class="v-role">
-    <el-tabs v-model="activeTab">
+    <el-tabs v-model="activeTab" @tab-click="handleTabSwitch">
       <el-tab-pane label="我的角色" name="personal">
         <el-button type="primary" size="small" icon="el-icon-plus" style="margin: 0 0 10px 2px;" @click="switchRoleForm">添加角色</el-button>
         <el-row :gutter="15" v-if="roleList.length > 0">
@@ -13,7 +13,14 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="所有角色" name="all">
-        <div>所有角色</div>
+        <el-row :gutter="15" v-if="roleList.length > 0">
+          <el-col :span="8" v-for="item in roleList" :key="item.id">
+            <c-role :data="item"></c-role>
+          </el-col>
+        </el-row>
+        <div class="no-data" v-else>
+          还没有角色，去添加一个吧
+        </div>
       </el-tab-pane>
     </el-tabs>
     <el-dialog
@@ -83,6 +90,7 @@
 <script>
 import * as components from '@/components'
 import * as enums from '@/enums'
+import * as api from '@/api/app'
 
 export default {
   components,
@@ -90,38 +98,7 @@ export default {
     return {
       enums,
       activeTab: 'personal',
-      roleList: [
-        {
-          id: 0,
-          name: '中街老冰棍',
-          duty: 'tank',
-          career: '死亡骑士',
-          firstSkill: '采矿',
-          secondSkill: '剥皮',
-          firstPublish: true,
-          color: '#C41E3B'
-        },
-        {
-          id: 1,
-          name: '中街五环',
-          duty: 'dps',
-          career: '武僧',
-          firstSkill: '炼金',
-          secondSkill: '工程',
-          firstPublish: false,
-          color: '#00ffba'
-        },
-        {
-          id: 2,
-          name: '鼻涕大侠',
-          duty: 'healer',
-          career: '圣骑士',
-          firstSkill: '采矿',
-          secondSkill: '草药',
-          firstPublish: false,
-          color: '#F48CBA'
-        }
-      ],
+      roleList: [],
       isRoleDialogVisible: false,
       formLabelWidth: '110px',
       roleForm: {
@@ -156,8 +133,46 @@ export default {
       this.$refs.roleForm && this.$refs.roleForm.resetFields()
     },
     submitRoleForm () {
-      console.log(this.roleForm)
+      this.$refs.roleForm.validate(async valid => {
+        if (valid) {
+          if (this.roleForm.firstSkill === this.roleForm.secondSkill) {
+            this.$message({
+              type: 'warning',
+              message: '两个专业咋能一样呢！！！'
+            })
+            return
+          }
+          const res = await api.addRole({
+            ...this.roleForm,
+            belongTo: 0
+          })
+          const err = this.$catchErr(res)
+          if (err) return
+          this.$message({
+            type: 'success',
+            message: res.data.message
+          })
+          this.switchRoleForm()
+          this.queryRoleList(0)
+        }
+      })
+    },
+    async queryRoleList (belongTo = '') {
+      const res = await api.queryRole({
+        belongTo
+      })
+      const err = this.$catchErr(res)
+      if (err) return
+      const { data } = res.data
+      this.roleList = data
+    },
+    handleTabSwitch () {
+      const belongTo = this.activeTab === 'personal' ? 0 : ''
+      this.queryRoleList(belongTo)
     }
+  },
+  created () {
+    this.queryRoleList(0)
   }
 }
 </script>
