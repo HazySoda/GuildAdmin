@@ -45,22 +45,38 @@
         <el-form-item label="职业色改写" prop="careerBackground">
           <el-checkbox v-model="queryForm.careerBackground"></el-checkbox>
         </el-form-item>
-        <el-form-item label="只看首发" prop="onlyShowFirstPublish">
-          <el-checkbox v-model="queryForm.onlyShowFirstPublish"></el-checkbox>
+        <el-form-item label="只看首发" prop="firstPublish">
+          <el-checkbox v-model="queryForm.firstPublish"></el-checkbox>
         </el-form-item>
         <el-form-item>
           <el-button type="ghost" @click="clearQueryForm">清空</el-button>
-          <el-button type="primary">查询</el-button>
+          <el-button type="primary" @click="queryFirstPublishList">查询</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-table :data="tableData" border stripe>
       <el-table-column label="昵称" prop="nickname"></el-table-column>
       <el-table-column label="角色名" prop="name"></el-table-column>
-      <el-table-column label="职业" prop="career"></el-table-column>
-      <el-table-column label="团队职责" prop="duty"></el-table-column>
-      <el-table-column label="第一专业技能" prop="firstSkill"></el-table-column>
-      <el-table-column label="第二专业技能" prop="secondSkill"></el-table-column>
+      <el-table-column label="职业" prop="career">
+        <template slot-scope="scope">
+          {{enums.careerList[scope.row.career].name}}
+        </template>
+      </el-table-column>
+      <el-table-column label="团队职责" prop="duty">
+        <template slot-scope="scope">
+          {{enums.dutyList[scope.row.duty].name}}
+        </template>
+      </el-table-column>
+      <el-table-column label="第一专业技能" prop="firstSkill">
+        <template slot-scope="scope">
+          {{enums.skillList[scope.row.firstSkill].name}}
+        </template>
+      </el-table-column>
+      <el-table-column label="第二专业技能" prop="secondSkill">
+        <template slot-scope="scope">
+          {{enums.skillList[scope.row.secondSkill].name}}
+        </template>
+      </el-table-column>
       <el-table-column label="8.0是否首发">
         <template slot-scope="scope">
           {{scope.row.firstPublish ? '是' : '否'}}
@@ -72,6 +88,7 @@
 
 <script>
 import * as enums from '@/enums'
+import * as api from '@/api/app'
 
 export default {
   data () {
@@ -83,49 +100,25 @@ export default {
         firstSkill: '',
         secondSkill: '',
         careerBackground: true,
-        onlyShowFirstPublish: false
+        firstPublish: false
       },
-      tableData: [
-        {
-          id: 0,
-          nickname: '冰棍',
-          name: '中街老冰棍',
-          duty: '坦克',
-          career: '死亡骑士',
-          firstSkill: '采矿',
-          secondSkill: '剥皮',
-          firstPublish: true
-        },
-        {
-          id: 0,
-          nickname: '冰棍',
-          name: '中街老冰棍',
-          duty: '坦克',
-          career: '死亡骑士',
-          firstSkill: '采矿',
-          secondSkill: '剥皮',
-          firstPublish: true
-        },
-        {
-          id: 0,
-          nickname: '冰棍',
-          name: '中街老冰棍',
-          duty: '坦克',
-          career: '死亡骑士',
-          firstSkill: '采矿',
-          secondSkill: '剥皮',
-          firstPublish: true
-        }
-      ]
+      tableData: []
     }
   },
   methods: {
     clearQueryForm () {
       this.$refs.queryForm.resetFields()
     },
-    queryFirstPublishList () {
-      console.log(this.queryForm)
+    async queryFirstPublishList () {
+      const res = await api.queryFirstPublish(this.queryForm)
+      const err = this.$catchErr(res)
+      if (err) return
+      const { data } = res.data
+      this.tableData = data
     }
+  },
+  created () {
+    this.queryFirstPublishList()
   }
 }
 </script>
