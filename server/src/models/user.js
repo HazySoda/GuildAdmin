@@ -1,0 +1,31 @@
+module.exports = (sequelize, DataTypes) => {
+  const fields = {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    nickname: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  }
+
+  const userModel = sequelize.define('user', fields, {
+    timestamps: false,
+    tableName: 't_user',
+    freezeTableName: true
+  })
+
+  return userModel
+}
