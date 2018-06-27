@@ -77,5 +77,40 @@ module.exports = {
         message: e.message
       }
     }
+  },
+  // 查询首发名单
+  async queryFirstPublish (ctx, next) {
+    const { career, duty, firstSkill, secondSkill, firstPublish } = ctx.request.body
+    const params = {
+      career,
+      duty,
+      firstSkill,
+      secondSkill,
+      firstPublish
+    }
+    const condition = {}
+    for (let key in params) {
+      if (params[key] !== '' && params[key] !== false) {
+        condition[key] = params[key]
+      }
+    }
+    try {
+      const roles = await RoleModel.findAll({
+        where: condition
+      })
+      ctx.status = 200
+      ctx.body = {
+        code: 0,
+        message: '查询成功',
+        data: roles
+      }
+    } catch (e) {
+      console.log(e)
+      ctx.status = 500
+      ctx.body = {
+        code: 500,
+        message: e.message
+      }
+    }
   }
 }
