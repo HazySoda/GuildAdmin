@@ -14,10 +14,6 @@
           text-color="#fff"
           background-color="#1B2737"
           active-text-color="#43b9ff">
-          <el-menu-item index="/app/home">
-            <i class="el-icon-menu"></i>
-            <span slot="title">首页</span>
-          </el-menu-item>
           <el-menu-item index="/app/first-publish">
             <i class="el-icon-time"></i>
             <span slot="title">首发统计</span>

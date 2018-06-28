@@ -5,7 +5,6 @@ import Login from '@/views/login'
 import Reg from '@/views/reg'
 
 import AppLayout from '@/views/app'
-import Home from '@/views/app/home'
 import FirstPublish from '@/views/app/firstPublish'
 import Role from '@/views/app/role'
 
@@ -28,11 +27,6 @@ export default new Router({
       name: 'AppLayout',
       component: AppLayout,
       children: [
-        {
-          path: 'home',
-          name: 'Home',
-          component: Home
-        },
         {
           path: 'first-publish',
           name: 'FirstPublish',
