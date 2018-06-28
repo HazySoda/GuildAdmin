@@ -60,7 +60,7 @@ export default {
           const { uid, token } = res.data
           window.localStorage.setItem('uid', uid)
           window.localStorage.setItem('token', token)
-          this.$router.push('/app/first-publish')
+          this.$router.push('/app/role')
         }
       })
     },

@@ -38,6 +38,10 @@ export default new Router({
           component: Role
         }
       ]
+    },
+    {
+      path: '/*',
+      redirect: '/login'
     }
   ]
 })
