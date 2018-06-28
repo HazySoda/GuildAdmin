@@ -3,6 +3,7 @@
     <el-header height="80px">
       <img class="logo" src="/static/logo.png" />
       <span class="title">部落中街冷饮店</span>
+      <el-button type="text" class="btn-logout" @click="logout">退出</el-button>
     </el-header>
     <el-container>
       <el-aside width="200px">
@@ -38,7 +39,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    logout () {
+      window.localStorage.clear()
+      this.$router.replace('/login')
+    }
+  }
+}
 </script>
 
 <style lang="scss">
