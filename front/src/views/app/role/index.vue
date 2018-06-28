@@ -74,8 +74,8 @@
         </el-form-item>
         <el-form-item prop="firstPublish" label="是否首发" :label-width="formLabelWidth">
           <el-radio-group v-model="roleForm.firstPublish">
-            <el-radio :label="1">当然啦</el-radio>
-            <el-radio :label="0">才不要</el-radio>
+            <el-radio :label="true">是</el-radio>
+            <el-radio :label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -97,6 +97,7 @@ export default {
   data () {
     return {
       enums,
+      uid: '',
       activeTab: 'personal',
       roleList: [],
       isRoleDialogVisible: false,
@@ -107,7 +108,7 @@ export default {
         duty: '',
         firstSkill: '',
         secondSkill: '',
-        firstPublish: 0
+        firstPublish: false
       },
       roleFormRules: {
         name: {required: true, message: '请填写此字段'},
@@ -128,7 +129,7 @@ export default {
         duty: '',
         firstSkill: '',
         secondSkill: '',
-        firstPublish: 0
+        firstPublish: false
       }
       this.$refs.roleForm && this.$refs.roleForm.resetFields()
     },
@@ -144,7 +145,7 @@ export default {
           }
           const res = await api.addRole({
             ...this.roleForm,
-            belongTo: 0
+            belongTo: this.uid
           })
           const err = this.$catchErr(res)
           if (err) return
@@ -153,7 +154,7 @@ export default {
             message: res.data.message
           })
           this.switchRoleForm()
-          this.queryRoleList(0)
+          this.queryRoleList(this.uid)
         }
       })
     },
@@ -167,12 +168,13 @@ export default {
       this.roleList = data
     },
     handleTabSwitch () {
-      const belongTo = this.activeTab === 'personal' ? 0 : ''
+      const belongTo = this.activeTab === 'personal' ? this.uid : ''
       this.queryRoleList(belongTo)
     }
   },
   created () {
-    this.queryRoleList(0)
+    this.uid = window.localStorage.getItem('uid')
+    this.queryRoleList(this.uid)
   }
 }
 </script>

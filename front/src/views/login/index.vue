@@ -52,7 +52,9 @@ export default {
           const res = await api.login(this.loginForm)
           const err = this.$catchErr(res)
           if (err) return
-          window.localStorage.setItem('token', res.data.token)
+          const { uid, token } = res.data
+          window.localStorage.setItem('uid', uid)
+          window.localStorage.setItem('token', token)
           this.$router.push('/app/home')
         }
       })
