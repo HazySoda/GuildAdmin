@@ -54,8 +54,8 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <el-table :data="tableData" border stripe>
-      <el-table-column label="昵称" prop="nickname"></el-table-column>
+    <el-table :data="tableData" :row-class-name="tableRowClassName" header-cell-class-name="el-th-cell">
+      <el-table-column label="ID" prop="id" width="40"></el-table-column>
       <el-table-column label="角色名" prop="name"></el-table-column>
       <el-table-column label="职业" prop="career">
         <template slot-scope="scope">
@@ -99,7 +99,7 @@ export default {
         duty: '',
         firstSkill: '',
         secondSkill: '',
-        careerBackground: true,
+        careerBackground: false,
         firstPublish: false
       },
       tableData: []
@@ -115,6 +115,11 @@ export default {
       if (err) return
       const { data } = res.data
       this.tableData = data
+    },
+    tableRowClassName ({row, rowIndex}) {
+      if (this.queryForm.careerBackground) {
+        return `career-row career-id-${row.career}`
+      }
     }
   },
   created () {
@@ -127,6 +132,59 @@ export default {
 .v-first-publish {
   .form-card {
     margin-bottom: 20px;
+  }
+  .el-th-cell {
+    background: #dfe6ec;
+    border-bottom: 1px solid #ebeef5;
+    color: #333;
+    text-align: center;
+  }
+  .el-table__row {
+    text-align: center;
+    &.career-row {
+      color: #fff;
+      font-size: 18px;
+      pointer-events: none;
+    }
+  }
+  .career-id-0 {
+    background-color: #8e41c7;
+  }
+  .career-id-1 {
+    background-color: #00ffba;
+    color: #555 !important;
+  }
+  .career-id-2 {
+    background-color: #c41e3b;
+  }
+  .career-id-3 {
+    background-color: #ff7c0a;
+  }
+  .career-id-4 {
+    background-color: #aad372;
+  }
+  .career-id-5 {
+    background-color: #68ccef;
+  }
+  .career-id-6 {
+    background-color: #f48cba;
+  }
+  .career-id-7 {
+    background-color: #f0ebe0;
+    color: #555 !important;
+  }
+  .career-id-8 {
+    background-color: #fff468;
+    color: #555 !important;
+  }
+  .career-id-9 {
+    background-color: #2359ff;
+  }
+  .career-id-10 {
+    background-color: #9382c9;
+  }
+  .career-id-11 {
+    background-color: #c69b6d;
   }
 }
 </style>
