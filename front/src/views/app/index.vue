@@ -9,7 +9,7 @@
       <el-aside width="200px">
         <el-menu
           class="el-nav"
-          default-active="/app/home"
+          :default-active="defaultActive"
           :router="true"
           text-color="#fff"
           background-color="#1B2737"
@@ -40,6 +40,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      defaultActive: this.$route.path
+    }
+  },
   methods: {
     logout () {
       window.localStorage.clear()
