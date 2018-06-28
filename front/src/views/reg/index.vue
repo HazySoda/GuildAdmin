@@ -40,7 +40,7 @@ export default {
         ],
         password: [
           {required: true, message: '请输入密码'},
-          {pattern: regexs.password, message: '请输入6-18位字母数字组合 (第一位必须为字母)'}
+          {pattern: regexs.password, message: '请输入6-18位字母数字组合'}
         ],
         nickname: [
           {required: true, message: '请输入昵称'},

@@ -4,7 +4,7 @@ module.exports = {
     host: 'localhost', // MySQL 地址
     port: '3306', // MySQL 端口号
     username: 'root', // MySQL 用户名
-    password: 'passwoed', // MySQL 密码
+    password: 'password', // MySQL 密码
     database: 'test', // 使用的数据库名称
     operatorsAliases: false // Issue #8417
   },
