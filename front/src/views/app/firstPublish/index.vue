@@ -77,7 +77,7 @@
           {{enums.skillList[scope.row.secondSkill].name}}
         </template>
       </el-table-column>
-      <el-table-column label="8.0是否首发">
+      <el-table-column label="是否首发">
         <template slot-scope="scope">
           {{scope.row.firstPublish ? '是' : '否'}}
         </template>
@@ -100,7 +100,7 @@ export default {
         firstSkill: '',
         secondSkill: '',
         careerBackground: false,
-        firstPublish: false
+        firstPublish: true
       },
       tableData: []
     }
@@ -114,6 +114,9 @@ export default {
       const err = this.$catchErr(res)
       if (err) return
       const { data } = res.data
+      if (data.length > 0) {
+        data.sort((a, b) => a.duty - b.duty)
+      }
       this.tableData = data
     },
     tableRowClassName ({row, rowIndex}) {
@@ -143,7 +146,6 @@ export default {
     text-align: center;
     &.career-row {
       color: #fff;
-      font-size: 18px;
       pointer-events: none;
     }
   }
