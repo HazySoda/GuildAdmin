@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
     nickname: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    role: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
     }
   }
 
