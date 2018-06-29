@@ -85,7 +85,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #333;
+  background: url('/static/bg.jpg') center top;
   .login-form__wrap {
     padding: 20px;
     border-radius: 6px;
@@ -97,6 +97,7 @@ export default {
     transform: translate(-50%, -50%);
     h1 {
       font-size: 24px;
+      font-weight: lighter;
       text-align: center;
       margin-bottom: 20px;
     }
