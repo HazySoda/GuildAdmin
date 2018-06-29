@@ -23,9 +23,9 @@ const validate = params => {
 module.exports = {
   async login (ctx, next) {
     // 获取请求参数
-    const { phone, password } = ctx.request.body
+    const { username, password } = ctx.request.body
     // 校验请求参数
-    const valid = validate({phone, password})
+    const valid = validate({username, password})
     if (!valid) {
       ctx.status = 400
       ctx.body = {
@@ -38,7 +38,7 @@ module.exports = {
       // 判断该用户是否存在
       const user = await UserModel.findOne({
         where: {
-          phone
+          username
         }
       })
       if (!user) {
@@ -46,7 +46,7 @@ module.exports = {
         ctx.status = 200
         ctx.body = {
           code: -1,
-          message: '此手机号码尚未注册'
+          message: '此用户名尚未注册'
         }
       } else {
         // 如果存在，则判断密码与数据库中的密码是否匹配
@@ -55,7 +55,7 @@ module.exports = {
           // 如果匹配，继续登录流程
           const payload = {
             uid: user.id,
-            phone: user.phone
+            username: user.username
           }
           // 签发 token 并返回给客户端
           const token = jwt.sign(payload, config.jwt.secret, config.jwt.options)
@@ -87,9 +87,9 @@ module.exports = {
   },
   async reg (ctx, next) {
     // 获取请求参数
-    const { phone, password, nickname } = ctx.request.body
+    const { username, password, nickname } = ctx.request.body
     // 校验请求参数
-    const valid = validate({phone, password, nickname})
+    const valid = validate({username, password, nickname})
     if (!valid) {
       ctx.status = 400
       ctx.body = {
@@ -99,17 +99,17 @@ module.exports = {
       return
     }
     try {
-      // 判断手机号码是否已经注册
+      // 判断用户名是否已经注册
       const user = await UserModel.findOne({
         where: {
-          [Op.or]: [{phone}, {nickname}]
+          [Op.or]: [{username}, {nickname}]
         }
       })
-      if (user && (user.phone === phone)) {
+      if (user && (user.username === username)) {
         ctx.status = 200
         ctx.body = {
           code: -1,
-          message: '该手机号码已被注册'
+          message: '该用户名已被注册'
         }
         return
       } else if (user && (user.nickname === nickname)) {
@@ -124,7 +124,7 @@ module.exports = {
       const hashPwd = await bcrypt.hash(password, 10)
       // 构建用户数据
       const data = {
-        phone,
+        username,
         password: hashPwd,
         nickname
       }
@@ -132,7 +132,7 @@ module.exports = {
       const newUser = await UserModel.create(data)
       const payload = {
         uid: newUser.id,
-        phone: newUser.phone
+        username: newUser.username
       }
       // 签发 token 并返回给客户端，以实现注册成功后自动登录
       const token = jwt.sign(payload, config.jwt.secret, config.jwt.options)
