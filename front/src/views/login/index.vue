@@ -6,11 +6,24 @@
         <!-- 以下两个 input 用于迷惑 Chrome 浏览器，使自动填充失效 -->
         <input style="display:none" type="text" name="fuckChromeAutoFill"/>
         <input style="display:none" type="password" name="fuckChromeAutoFill"/>
-        <el-form-item label="手机号" prop="phone" label-width="70px">
-          <el-input v-model="loginForm.phone" type="text" autofocus clearable auto-complete="off"></el-input>
+        <el-form-item label="用户名" prop="username" label-width="70px">
+          <el-input
+            type="text"
+            v-model="loginForm.username"
+            auto-complete="off"
+            autofocus
+            clearable
+            placeholder="5-16位字母数字组合">
+          </el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password" label-width="70px">
-          <el-input v-model="loginForm.password" type="password" clearable auto-complete="off"></el-input>
+          <el-input
+            type="password"
+            v-model="loginForm.password"
+            auto-complete="off"
+            clearable
+            placeholder="6-18位字母数字组合">
+          </el-input>
         </el-form-item>
       </el-form>
       <div class="login-form__actions">
@@ -29,17 +42,17 @@ export default {
   data () {
     return {
       loginForm: {
-        phone: '',
+        username: '',
         password: ''
       },
       loginFormRules: {
-        phone: [
-          {required: true, message: '请输入手机号码'},
-          {pattern: regexs.phone, message: '手机号码格式有误，请检查'}
+        username: [
+          {required: true, message: '请输入用户名'},
+          {pattern: regexs.username, message: '用户名须为5-16位字母/数字组合', trigger: 'blur'}
         ],
         password: [
           {required: true, message: '请输入密码'},
-          {pattern: regexs.password, message: '请输入6-18位字母数字组合'}
+          {pattern: regexs.password, message: '密码须为6-18位字母/数字组合', trigger: 'blur'}
         ]
       }
     }

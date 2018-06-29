@@ -3,14 +3,34 @@
     <div class="reg-form__wrap">
       <h1>注册</h1>
       <el-form size="medium" :model="regForm" ref="regForm" :rules="regFormRules" label-width="65px">
-        <el-form-item label="手机号" prop="phone" label-width="70px">
-          <el-input v-model="regForm.phone" type="text" autofocus clearable auto-complete="off"></el-input>
+        <el-form-item label="用户名" prop="username" label-width="70px">
+          <el-input
+            type="text"
+            v-model="regForm.username"
+            auto-complete="off"
+            autofocus
+            clearable
+            placeholder="5-16位字母数字组合">
+          </el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password" label-width="70px">
-          <el-input v-model="regForm.password" type="password" clearable auto-complete="off"></el-input>
+          <el-input
+            type="password"
+            v-model="regForm.password"
+            auto-complete="off"
+            clearable
+            placeholder="6-18位字母数字组合">
+          </el-input>
         </el-form-item>
         <el-form-item label="昵称" prop="nickname" label-width="70px">
-          <el-input v-model="regForm.nickname" type="text" autofocus clearable auto-complete="off"></el-input>
+          <el-input
+            type="text"
+            v-model="regForm.nickname"
+            auto-complete="off"
+            autofocus
+            clearable
+            placeholder="请填写众人皆知的昵称">
+          </el-input>
         </el-form-item>
       </el-form>
       <div class="reg-form__actions">
@@ -29,22 +49,22 @@ export default {
   data () {
     return {
       regForm: {
-        phone: '',
+        username: '',
         password: '',
         nickname: ''
       },
       regFormRules: {
-        phone: [
-          {required: true, message: '请输入手机号码'},
-          {pattern: regexs.phone, message: '手机号码格式有误，请检查'}
+        username: [
+          {required: true, message: '请输入用户名'},
+          {pattern: regexs.username, message: '用户名须为5-16位字母/数字组合', trigger: 'blur'}
         ],
         password: [
           {required: true, message: '请输入密码'},
-          {pattern: regexs.password, message: '请输入6-18位字母数字组合'}
+          {pattern: regexs.password, message: '密码须为6-18位字母/数字组合', trigger: 'blur'}
         ],
         nickname: [
           {required: true, message: '请输入昵称'},
-          {pattern: regexs.nickname, message: '请输入2-10位的中英文组合 (不允许特殊符号)'}
+          {pattern: regexs.nickname, message: '请输入2-10位的中/英文组合', trigger: 'blur'}
         ]
       }
     }
