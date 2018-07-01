@@ -77,8 +77,9 @@ export default {
           const res = await api.reg(this.regForm)
           const err = this.$catchErr(res)
           if (err) return
-          const { uid, token } = res.data
+          const { uid, nickname, token } = res.data
           window.localStorage.setItem('uid', uid)
+          window.localStorage.setItem('nickname', nickname)
           window.localStorage.setItem('token', token)
           this.$router.push('/app/role')
         }

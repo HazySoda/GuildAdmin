@@ -63,8 +63,9 @@ module.exports = {
           ctx.body = {
             code: 0,
             message: '登录成功',
-            token,
-            uid: user.id
+            uid: user.id,
+            nickname: user.nickname,
+            token
           }
         } else {
           // 如果不匹配，则提示用户名或密码错误
@@ -140,8 +141,9 @@ module.exports = {
       ctx.body = {
         code: 0,
         message: '注册成功',
-        token,
-        uid: newUser.id
+        uid: newUser.id,
+        nickname: newUser.nickname,
+        token
       }
     } catch (e) {
       console.log(e)

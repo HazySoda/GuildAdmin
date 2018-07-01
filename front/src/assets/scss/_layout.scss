@@ -12,12 +12,17 @@
   .title {
     vertical-align: middle;
   }
-  .btn-logout {
+  .actions {
     color: #fff;
+    font-size: 14px;
     position: absolute;
     right: 30px;
     top: 50%;
     transform: translateY(-50%);
+  }
+  .btn-logout {
+    color: #fff;
+    margin-left: 5px;
   }
 }
 

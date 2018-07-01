@@ -3,9 +3,6 @@
     <div class="login-form__wrap">
       <h1>登录</h1>
       <el-form size="medium" :model="loginForm" ref="loginForm" :rules="loginFormRules" label-width="65px">
-        <!-- 以下两个 input 用于迷惑 Chrome 浏览器，使自动填充失效 -->
-        <input style="display:none" type="text" name="fuckChromeAutoFill"/>
-        <input style="display:none" type="password" name="fuckChromeAutoFill"/>
         <el-form-item label="用户名" prop="username" label-width="70px">
           <el-input
             type="text"
@@ -65,8 +62,9 @@ export default {
           const res = await api.login(this.loginForm)
           const err = this.$catchErr(res)
           if (err) return
-          const { uid, token } = res.data
+          const { uid, nickname, token } = res.data
           window.localStorage.setItem('uid', uid)
+          window.localStorage.setItem('nickname', nickname)
           window.localStorage.setItem('token', token)
           this.$router.push('/app/role')
         }

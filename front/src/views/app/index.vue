@@ -3,7 +3,10 @@
     <el-header height="80px">
       <img class="logo" src="/static/logo.png" />
       <span class="title">部落中街冷饮店</span>
-      <el-button type="text" class="btn-logout" @click="logout">退出</el-button>
+      <div class="actions">
+        <span>[ {{nickname}} ]</span>
+        <el-button type="text" class="btn-logout" @click="logout">退出</el-button>
+      </div>
     </el-header>
     <el-container>
       <el-aside width="200px">
@@ -38,7 +41,8 @@
 export default {
   data () {
     return {
-      defaultActive: this.$route.path
+      defaultActive: this.$route.path,
+      nickname: ''
     }
   },
   methods: {
@@ -46,6 +50,9 @@ export default {
       window.localStorage.clear()
       this.$router.replace('/login')
     }
+  },
+  created () {
+    this.nickname = window.localStorage.getItem('nickname') || ''
   }
 }
 </script>
