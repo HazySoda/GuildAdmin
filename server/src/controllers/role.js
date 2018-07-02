@@ -49,6 +49,50 @@ module.exports = {
       }
     }
   },
+  // 修改角色
+  async updateRole (ctx, next) {
+    // 获取请求参数
+    const { id, name, career, duty, firstSkill, secondSkill, firstPublish } = ctx.request.body
+    try {
+      // 先判断是否存在该角色
+      const role = await RoleModel.findOne({
+        where: {
+          id
+        }
+      })
+      if (!role) {
+        // 如果不存在，返回错误信息
+        ctx.status = 200
+        ctx.body = {
+          code: -1,
+          message: '该角色不存在'
+        }
+      } else {
+        // 如果存在，对角色信息进行更新
+        role.update({
+          name,
+          career,
+          duty,
+          firstSkill,
+          secondSkill,
+          firstPublish
+        })
+        ctx.status = 200
+        ctx.body = {
+          code: 0,
+          message: '修改角色信息成功',
+          data: null
+        }
+      }
+    } catch (e) {
+      console.log(e)
+      ctx.status = 500
+      ctx.body = {
+        code: 500,
+        message: e.message
+      }
+    }
+  },
   // 查询角色
   async queryRole (ctx, next) {
     const { belongTo } = ctx.request.body
