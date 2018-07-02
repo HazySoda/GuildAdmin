@@ -1,4 +1,5 @@
 const RoleModel = require('../init/db').Role
+const UserModel = require('../init/db').User
 
 module.exports = {
   // 添加角色
@@ -52,13 +53,16 @@ module.exports = {
   async queryRole (ctx, next) {
     const { belongTo } = ctx.request.body
     // 判断是个人查询还是全部查询
-    let condition = {}
+    let condition = {
+      include: [{
+        model: UserModel,
+        attributes: ['nickname']
+      }]
+    }
     if (belongTo) {
       // 个人查询
-      condition = {
-        where: {
-          belongTo
-        }
+      condition.include[0].where = {
+        id: belongTo
       }
     }
     try {
@@ -88,16 +92,20 @@ module.exports = {
       secondSkill,
       firstPublish
     }
-    const condition = {}
+    const condition = {
+      include: [{
+        model: UserModel,
+        attributes: ['nickname']
+      }],
+      where: {}
+    }
     for (let key in params) {
       if (params[key] !== '' && params[key] !== false) {
-        condition[key] = params[key]
+        condition.where[key] = params[key]
       }
     }
     try {
-      const roles = await RoleModel.findAll({
-        where: condition
-      })
+      const roles = await RoleModel.findAll(condition)
       ctx.status = 200
       ctx.body = {
         code: 0,

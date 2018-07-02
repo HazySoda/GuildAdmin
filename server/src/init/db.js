@@ -21,6 +21,11 @@ for (let model of child) {
     console.log(`Model [${modelName}] has been imported.`)
   }
 }
+
+sequelize.Role.belongsTo(sequelize.User, {
+  foreignKey: 'belongTo'
+})
+
 // 同步数据库
 sequelize.sync()
 
