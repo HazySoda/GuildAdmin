@@ -5,27 +5,35 @@
         <el-button type="primary" size="small" icon="el-icon-plus" style="margin: 0 0 10px 2px;" @click="switchRoleForm">添加角色</el-button>
         <el-row :gutter="15" v-if="roleList.length > 0">
           <el-col :span="8" v-for="item in roleList" :key="item.id">
-            <c-role :data="item"></c-role>
+            <c-role
+              :data="item"
+              :show-actions="true"
+              @edit-btn-click="switchDetail">
+            </c-role>
           </el-col>
         </el-row>
         <div class="no-data" v-else>
-          还没有角色，去添加一个吧
+          角色列表空空如也，去添加一个吧
         </div>
       </el-tab-pane>
       <el-tab-pane label="所有角色" name="all">
         <el-row :gutter="15" v-if="roleList.length > 0">
           <el-col :span="8" v-for="item in roleList" :key="item.id">
-            <c-role :data="item"></c-role>
+            <c-role
+              :data="item"
+              :show-actions="false"
+              @edit-btn-click="switchDetail">
+            </c-role>
           </el-col>
         </el-row>
         <div class="no-data" v-else>
-          还没有角色，去添加一个吧
+           角色列表空空如也
         </div>
       </el-tab-pane>
     </el-tabs>
     <el-dialog
       :visible.sync="isRoleDialogVisible"
-      title="添加角色"
+      :title="roleFormTitle"
       custom-class="role-dialog"
       :close-on-click-modal="false">
       <el-form :model="roleForm" ref="roleForm" :rules="roleFormRules">
@@ -78,7 +86,8 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitRoleForm">保存</el-button>
+        <el-button type="primary" @click="submitRoleForm" v-show="!isRoleFormEditing">保存</el-button>
+        <el-button type="primary" @click="updateRoleForm" v-show="isRoleFormEditing">修改</el-button>
         <el-button @click="switchRoleForm">取消</el-button>
       </span>
     </el-dialog>
@@ -100,6 +109,8 @@ export default {
       roleList: [],
       isRoleDialogVisible: false,
       formLabelWidth: '110px',
+      roleFormTitle: '',
+      isRoleFormEditing: false,
       roleForm: {
         name: '',
         career: '',
@@ -129,6 +140,8 @@ export default {
         secondSkill: '',
         firstPublish: false
       }
+      this.roleFormTitle = '添加角色'
+      this.isRoleFormEditing = false
       this.$refs.roleForm && this.$refs.roleForm.resetFields()
     },
     submitRoleForm () {
@@ -137,6 +150,38 @@ export default {
           const res = await api.addRole({
             ...this.roleForm,
             belongTo: this.uid
+          })
+          const err = this.$catchErr(res)
+          if (err) return
+          this.$message({
+            type: 'success',
+            message: res.data.message
+          })
+          this.switchRoleForm()
+          this.queryRoleList(this.uid)
+        }
+      })
+    },
+    switchDetail (data) {
+      this.roleForm = {
+        ...data
+      }
+      this.roleFormTitle = '修改角色'
+      this.isRoleFormEditing = true
+      this.isRoleDialogVisible = true
+    },
+    updateRoleForm () {
+      this.$refs.roleForm.validate(async valid => {
+        if (valid) {
+          const { id, name, career, duty, firstSkill, secondSkill, firstPublish } = this.roleForm
+          const res = await api.updateRole({
+            id,
+            name,
+            career,
+            duty,
+            firstSkill,
+            secondSkill,
+            firstPublish
           })
           const err = this.$catchErr(res)
           if (err) return

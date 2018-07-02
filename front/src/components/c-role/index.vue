@@ -7,12 +7,8 @@
       <span class="name" :style="{color: enums.careerList[data.career].color}">
         {{data.name}} ({{data.user.nickname}})
       </span>
-      <el-checkbox
-        disabled
-        v-model="data.firstPublish"
-        style="float: right; vertical-align: middle;">
-        首发
-      </el-checkbox>
+      <span class="tag" v-if="data.firstPublish">首发</span>
+      <el-button v-if="showActions" class="edit-btn" size="mini" circle icon="el-icon-edit-outline" @click="handleEditBtnClick"></el-button>
     </div>
     <p class="item">职业：{{enums.careerList[data.career].name}}</p>
     <p class="item">第一专业：{{enums.skillList.find(i => i.id === data.firstSkill).name}}</p>
@@ -28,11 +24,20 @@ export default {
     data: {
       type: Object,
       default: () => {}
+    },
+    showActions: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       enums
+    }
+  },
+  methods: {
+    handleEditBtnClick () {
+      this.$emit('edit-btn-click', this.data)
     }
   }
 }
@@ -45,36 +50,35 @@ export default {
   .el-card__header {
     background: #333;
     border-bottom: 1px solid #666;
+    padding: 10px 15px;
     .header {
-      line-height: 30px;
+      display: flex;
+      align-items: center;
+      position: relative;
       .duty {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
-        vertical-align: middle;
       }
       .name {
-        font-size: 18px;
-        vertical-align: middle;
+        font-size: 16px;
         margin-left: 5px;
       }
-      .el-checkbox {
-        .el-checkbox__label {
-          color: #fff !important;
-          padding-left: 5px;
-        }
-        &.is-disabled.is-checked {
-          .el-checkbox__inner {
-            background-color: #666;
-            &::after {
-              border-color: #fff;
-            }
-          }
-        }
+      .tag {
+        border: 1px solid #fff;
+        border-radius: 3px;
+        font-size: 12px;
+        margin-left: 5px;
+        padding: 0 4px;
+      }
+      .edit-btn {
+        position: absolute;
+        right: -5px;
       }
     }
   }
   .el-card__body {
+    font-size: 14px;
     background: #333;
     padding: 10px 20px;
     .item {

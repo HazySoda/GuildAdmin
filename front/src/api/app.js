@@ -1,7 +1,10 @@
 import _axios from './axios'
 
 // 添加角色
-export const addRole = data => _axios.post('/role/add', data)
+export const addRole = data => _axios.post('/role/addRole', data)
+
+// 修改角色
+export const updateRole = data => _axios.post('/role/updateRole', data)
 
 // 查询角色
 export const queryRole = data => _axios.post('/role/queryRole', data)
