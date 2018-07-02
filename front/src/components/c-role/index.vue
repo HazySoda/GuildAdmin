@@ -4,7 +4,9 @@
       <img v-if="data.duty === 0" class="duty" src="/static/duty/tank_64x64.png" alt="坦克" />
       <img v-if="data.duty === 1" class="duty" src="/static/duty/healer_64x64.png" alt="治疗者" />
       <img v-if="data.duty === 2 || data.duty === 3" class="duty" src="/static/duty/dps_64x64.png" alt="伤害输出" />
-      <span class="name" :style="{color: enums.careerList[data.career].color}">{{data.name}}</span>
+      <span class="name" :style="{color: enums.careerList[data.career].color}">
+        {{data.name}} ({{data.user.nickname}})
+      </span>
       <el-checkbox
         disabled
         v-model="data.firstPublish"

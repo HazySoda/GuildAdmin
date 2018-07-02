@@ -56,7 +56,11 @@
     </el-card>
     <el-table :data="tableData" :row-class-name="tableRowClassName" header-cell-class-name="el-th-cell">
       <el-table-column label="ID" prop="id" width="40"></el-table-column>
-      <el-table-column label="角色名" prop="name"></el-table-column>
+      <el-table-column label="角色名">
+        <template slot-scope="scope">
+          {{scope.row.name}} ({{scope.row.user.nickname}})
+        </template>
+      </el-table-column>
       <el-table-column label="职业" prop="career">
         <template slot-scope="scope">
           {{enums.careerList[scope.row.career].name}}
