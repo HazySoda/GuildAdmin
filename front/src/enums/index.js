@@ -82,6 +82,10 @@ const dutyList = [
 
 const skillList = [
   {
+    id: -1,
+    name: '无'
+  },
+  {
     id: 0,
     name: '采矿'
   },

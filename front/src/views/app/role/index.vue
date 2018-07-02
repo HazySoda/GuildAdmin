@@ -33,7 +33,7 @@
           <el-input v-model="roleForm.name" placeholder="请填写游戏角色名"></el-input>
         </el-form-item>
         <el-form-item prop="career" label="职业" :label-width="formLabelWidth">
-          <el-select v-model="roleForm.career" placeholder="请选择角色职业">
+          <el-select v-model="roleForm.career" placeholder="请选择角色职业" @change="roleForm.duty = ''">
             <el-option
               v-for="item in enums.careerList"
               :key="item.id"
@@ -44,12 +44,10 @@
         </el-form-item>
         <el-form-item prop="duty" label="团队职责" :label-width="formLabelWidth">
           <el-select v-model="roleForm.duty" placeholder="请选择团队职责">
-            <el-option
-              v-for="item in enums.dutyList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id">
-            </el-option>
+            <el-option label="坦克" :value="0" :disabled="[4, 5, 7, 8, 9, 10].includes(roleForm.career)"></el-option>
+            <el-option label="治疗" :value="1" :disabled="[0, 2, 4, 5, 8, 10, 11].includes(roleForm.career)"></el-option>
+            <el-option label="DPS (近战)" :value="2" :disabled="[5, 7, 9, 10].includes(roleForm.career)"></el-option>
+            <el-option label="DPS (远程)" :value="3" :disabled="[0, 1, 2, 6, 8, 11].includes(roleForm.career)"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item prop="firstSkill" label="第一专业技能" :label-width="formLabelWidth">
@@ -111,12 +109,12 @@ export default {
         firstPublish: false
       },
       roleFormRules: {
-        name: {required: true, message: '请填写此字段'},
-        career: {required: true, message: '请填写此字段'},
-        duty: {required: true, message: '请填写此字段'},
-        firstSkill: {required: true, message: '请填写此字段'},
-        secondSkill: {required: true, message: '请填写此字段'},
-        firstPublish: {required: true, message: '请填写此字段'}
+        name: {required: true, message: '请填写角色名'},
+        career: {required: true, message: '请选择职业'},
+        duty: {required: true, message: '请选择团队职责'},
+        firstSkill: {required: true, message: '请选择第一专业技能'},
+        secondSkill: {required: true, message: '请选择第二专业技能'},
+        firstPublish: {required: true, message: '请选择是否首发'}
       }
     }
   },
@@ -136,13 +134,6 @@ export default {
     submitRoleForm () {
       this.$refs.roleForm.validate(async valid => {
         if (valid) {
-          if (this.roleForm.firstSkill === this.roleForm.secondSkill) {
-            this.$message({
-              type: 'warning',
-              message: '两个专业咋能一样呢！！！'
-            })
-            return
-          }
           const res = await api.addRole({
             ...this.roleForm,
             belongTo: this.uid

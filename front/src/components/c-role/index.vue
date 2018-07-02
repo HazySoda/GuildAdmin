@@ -15,8 +15,8 @@
       </el-checkbox>
     </div>
     <p class="item">职业：{{enums.careerList[data.career].name}}</p>
-    <p class="item">第一专业：{{enums.skillList[data.firstSkill].name}}</p>
-    <p class="item">第二专业：{{enums.skillList[data.secondSkill].name}}</p>
+    <p class="item">第一专业：{{enums.skillList.find(i => i.id === data.firstSkill).name}}</p>
+    <p class="item">第二专业：{{enums.skillList.find(i => i.id === data.secondSkill).name}}</p>
   </el-card>
 </template>
 

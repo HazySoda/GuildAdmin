@@ -73,12 +73,12 @@
       </el-table-column>
       <el-table-column label="第一专业技能" prop="firstSkill">
         <template slot-scope="scope">
-          {{enums.skillList[scope.row.firstSkill].name}}
+          {{enums.skillList.find(i => i.id === scope.row.firstSkill).name}}
         </template>
       </el-table-column>
       <el-table-column label="第二专业技能" prop="secondSkill">
         <template slot-scope="scope">
-          {{enums.skillList[scope.row.secondSkill].name}}
+          {{enums.skillList.find(i => i.id === scope.row.secondSkill).name}}
         </template>
       </el-table-column>
       <el-table-column label="是否首发">
