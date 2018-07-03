@@ -19,7 +19,8 @@
             v-model="loginForm.password"
             auto-complete="off"
             clearable
-            placeholder="6-18位字母数字组合">
+            placeholder="6-18位字母数字组合"
+            @keyup.enter.native="submit">
           </el-input>
         </el-form-item>
       </el-form>
@@ -66,7 +67,7 @@ export default {
           window.localStorage.setItem('uid', uid)
           window.localStorage.setItem('nickname', nickname)
           window.localStorage.setItem('token', token)
-          this.$router.push('/app/role')
+          this.$router.push('/app/home')
         }
       })
     },

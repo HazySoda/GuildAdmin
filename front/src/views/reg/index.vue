@@ -81,7 +81,7 @@ export default {
           window.localStorage.setItem('uid', uid)
           window.localStorage.setItem('nickname', nickname)
           window.localStorage.setItem('token', token)
-          this.$router.push('/app/role')
+          this.$router.push('/app/home')
         }
       })
     },
