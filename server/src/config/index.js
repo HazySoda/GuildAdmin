@@ -11,7 +11,7 @@ module.exports = {
   jwt: {
     secret: 'KidneyFlower', // jsonwebtoken 使用的 secret
     options: {
-      expiresIn: '60s' // Token 的过期时间
+      expiresIn: '24h' // Token 的过期时间
     }
   }
 }
