@@ -55,28 +55,27 @@
       </el-form>
     </el-card>
     <el-table :data="tableData" :row-class-name="tableRowClassName" header-cell-class-name="el-th-cell">
-      <el-table-column label="ID" prop="id" width="40"></el-table-column>
       <el-table-column label="角色名">
         <template slot-scope="scope">
           {{scope.row.name}} ({{scope.row.user.nickname}})
         </template>
       </el-table-column>
-      <el-table-column label="职业" prop="career">
+      <el-table-column label="职业">
         <template slot-scope="scope">
           {{enums.careerList[scope.row.career].name}}
         </template>
       </el-table-column>
-      <el-table-column label="团队职责" prop="duty">
+      <el-table-column label="团队职责">
         <template slot-scope="scope">
           {{enums.dutyList[scope.row.duty].name}}
         </template>
       </el-table-column>
-      <el-table-column label="第一专业技能" prop="firstSkill">
+      <el-table-column label="第一专业">
         <template slot-scope="scope">
           {{enums.skillList.find(i => i.id === scope.row.firstSkill).name}}
         </template>
       </el-table-column>
-      <el-table-column label="第二专业技能" prop="secondSkill">
+      <el-table-column label="第二专业">
         <template slot-scope="scope">
           {{enums.skillList.find(i => i.id === scope.row.secondSkill).name}}
         </template>
