@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '@/views/login'
-import Reg from '@/views/reg'
-
 import AppLayout from '@/views/app'
 import Home from '@/views/app/home'
 import FirstPublish from '@/views/app/firstPublish'
@@ -17,11 +15,6 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/reg',
-      name: 'Reg',
-      component: Reg
     },
     {
       path: '/app',
