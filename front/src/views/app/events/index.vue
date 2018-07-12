@@ -35,6 +35,7 @@
         <el-form-item label="活动时间" prop="date" label-width="80px">
           <el-date-picker
             type="date"
+            :editable="false"
             v-model="eventForm.date"
             value-format="yyyy-MM-dd"
             placeholder="请选择活动日期">
@@ -58,7 +59,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="参与角色" prop="members" label-width="80px">
-          <el-select multiple v-model="eventForm.members" placeholder="请选择参与角色">
+          <el-select multiple filterable v-model="eventForm.members" placeholder="请选择参与角色">
             <el-option v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
