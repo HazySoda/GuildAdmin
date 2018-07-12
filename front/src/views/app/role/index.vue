@@ -2,7 +2,9 @@
   <div class="v-role">
     <el-tabs v-model="activeTab" @tab-click="handleTabSwitch">
       <el-tab-pane label="我的角色" name="personal">
-        <el-button type="primary" size="small" icon="el-icon-plus" style="margin: 0 0 10px 2px;" @click="switchRoleForm">添加角色</el-button>
+        <el-row style="margin: 0 0 10px 2px;">
+          <el-button type="primary" size="small" icon="el-icon-plus" @click="switchRoleForm">添加角色</el-button>
+        </el-row>
         <el-row :gutter="15" v-if="roleList.length > 0">
           <el-col :span="8" v-for="item in roleList" :key="item.id">
             <c-role

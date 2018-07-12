@@ -139,12 +139,6 @@ export default {
   .form-card {
     margin-bottom: 20px;
   }
-  .el-th-cell {
-    background: #dfe6ec;
-    border-bottom: 1px solid #ebeef5;
-    color: #333;
-    text-align: center;
-  }
   .el-table__row {
     text-align: center;
     &.career-row {

@@ -6,6 +6,7 @@ import AppLayout from '@/views/app'
 import Home from '@/views/app/home'
 import FirstPublish from '@/views/app/firstPublish'
 import Role from '@/views/app/role'
+import Events from '@/views/app/events'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
           path: 'role',
           name: 'Role',
           component: Role
+        },
+        {
+          path: 'events',
+          name: 'Events',
+          component: Events
         }
       ]
     },
