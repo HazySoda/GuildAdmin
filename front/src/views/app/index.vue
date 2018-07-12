@@ -29,7 +29,7 @@
             <i class="el-icon-tickets"></i>
             <span slot="title">角色管理</span>
           </el-menu-item>
-          <el-menu-item index="/app/events">
+          <el-menu-item index="/app/events" v-if="role === 1">
             <i class="el-icon-date"></i>
             <span slot="title">活动管理</span>
           </el-menu-item>
@@ -50,7 +50,8 @@ export default {
   data () {
     return {
       defaultActive: this.$route.path,
-      nickname: ''
+      nickname: '',
+      role: 0
     }
   },
   methods: {
@@ -61,6 +62,7 @@ export default {
   },
   created () {
     this.nickname = window.localStorage.getItem('nickname') || ''
+    this.role = ~~window.localStorage.getItem('role') || 0
   }
 }
 </script>

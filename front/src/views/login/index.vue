@@ -128,9 +128,10 @@ export default {
           }
           const err = this.$catchErr(res)
           if (err) return
-          const { uid, nickname, token } = res.data
+          const { uid, nickname, role, token } = res.data
           window.localStorage.setItem('uid', uid)
           window.localStorage.setItem('nickname', nickname)
+          window.localStorage.setItem('role', role)
           window.localStorage.setItem('token', token)
           this.$router.push('/app/home')
         }
