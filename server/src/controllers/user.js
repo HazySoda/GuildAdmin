@@ -65,6 +65,7 @@ module.exports = {
             message: '登录成功',
             uid: user.id,
             nickname: user.nickname,
+            role: user.role,
             token
           }
         } else {
@@ -143,6 +144,7 @@ module.exports = {
         message: '注册成功',
         uid: newUser.id,
         nickname: newUser.nickname,
+        role: newUser.role,
         token
       }
     } catch (e) {
